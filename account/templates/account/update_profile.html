@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block title %}UPDATE{% endblock %}
+
+{% block content %}
+
+<div calss="container-fluid" id="change-form">
+	<h2 class="text-success"> Update Profile </h2>
+
+	<form method='post' enctype='multipart/form-data'>
+		{% csrf_token %}
+		{% for field in form %}
+			{% if field.label == 'Prof img' %}
+				{% if not profile.prof_img %}
+				<img id="profile-image" src="{% static 'account/img/user.png' %}" />
+				{% else %}
+				<img id="profile-image" src="{{ profile.prof_img.url }}" style="opacity:1" />
+				{% endif %}
+				{{ field }}
+				<input value="{{ profile.user.username }}" class="form-control" disabled>
+			{% elif field.label == 'Name' %}
+				{% if profile.name %}
+				<input type="text" name="name" value="{{ profile.name }}" id="id_name" class="form-control" maxlength="256">
+				{% else %}
+				{{ field }}
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+		
+		<button type="submit" class="btn btn-primary">SUBMIT</button>
+		<a href="{% url 'account:update_password' %}" type="button" class="btn btn-default">ChangePassword</a>
+	</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block title %}SIGNUP{% endblock %}
+
+{% block content %}
+
+	<div class="container" id="auth-form">
+		<form method="POST" enctype='multipart/form-data'>
+			{% csrf_token %}
+			{% for each in form %}
+				{% if each.label == 'Prof img' %}
+				<img id="profile-image" src="{% static 'account/img/user.png' %}" />
+				{% endif %}
+				{{ each }}				
+			{% endfor %}
+			<button type="submit" class="btn btn-default">Signup</button>
+		</form>
+	</div>
+
+{% endblock %}
+
+{% block script %}
+
+
+<script>
+	$(window).resize(function(){
+		var width = $(window).width();
+		if(width < 600){
+			$("#auth-form").css('width','100%');
+		} else {
+			$("#auth-form").css('width','50%');
+		}
+	});
+	$(document).ready(function(){
+		var width = $(window).width();
+		if(width < 600){
+			$("#auth-form").css('width','100%');
+		} else {
+			$("#auth-form").css('width','50%');
+		}
+	});
+</script>
+{% endblock %}

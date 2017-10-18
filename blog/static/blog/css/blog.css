@@ -1,0 +1,141 @@
+html, body{
+	height:100%;
+}
+
+/*****************NAVBAR*******************/
+
+.navbar form{
+	width:300px;
+	padding:10px;
+}
+div.body{
+	width:100%;
+	margin-top: 70px;
+}
+
+/**************** NEW POST *******************/
+
+div#post-area{
+	margin:auto;
+}
+
+.post-form > form{
+	height:100%;
+}
+textarea#content{
+	width:100%;
+	height: 50px;
+	box-sizing: border-box;
+	border: 2px solid #cce;
+	border-radius: 4px;
+	-webkit-transition: height 0.4s;
+	transition: height 0.4s;
+}
+textarea#content:focus{
+	height:100%;
+}
+
+input#location{
+	height:30px;
+	width:90%;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	display: none;
+}
+
+input#tags{
+	height:30px;
+	width:100%;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	display:none;
+}
+
+div.submit button{
+	float:right;
+}
+
+/*****************POST*******************/
+div.posts{
+	margin-top: 5em;
+}
+
+div.post{
+	max-height:300px;
+	padding:15px;
+	margin-bottom: 20px;
+	border-top: 2px solid #ccc;
+	position:relative;
+}
+
+.post > .post-head{
+	max-height:200px;
+}
+.post-head > p{
+	padding:0;
+	margin:0;
+}
+.post > .post-body{
+	max-height:270px;
+	
+}
+.post > .post-tail{
+	height:10%;
+	
+}
+
+div#delete{
+	position:absolute;
+	right:1%; top:0;
+	display:none;
+}
+div#mod{
+	position:absolute;
+	right:4%; top:0;
+	display:none;
+}
+
+/********************PROFILE **********************/
+div#wrap{
+	height:100%; width:100%;
+}
+div#profile{
+	height:100%;
+	width:30%;
+	
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+	position:relative;
+}
+div#setting-btn{
+	position:absolute;
+	right:10%; top:0%;
+}
+img#self-image{
+	width:150px;
+	height:150px;
+	opacity: 0.2;
+
+	margin-top: 1em;
+	border: 1px solid #000;
+	border-radius:100px;
+}
+
+div#self-content{
+	height:100%;
+	width:50%;
+
+	display: inline-block;	
+	vertical-align: top;
+}
+
+a#profile_name{
+	color: #3e3730;
+	font-weight: bold;
+}
+a#profile_name:hover{
+	color:#8b2f2b;
+}

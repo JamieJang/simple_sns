@@ -1,0 +1,46 @@
+html, body{
+	height:100%;
+}
+
+div#auth-form{
+	width:50%;
+	margin-top:20px;
+	text-align:center;
+}
+
+div#auth-form input{
+	margin-bottom: 10px;
+}
+
+input#prof_img{
+	width:50%;
+	margin:auto;
+}
+
+img#profile-image{
+	width:150px;
+	height:150px;
+	opacity: 0.2;
+
+	margin-top: 1em;
+	border: 1px solid #000;
+	border-radius:100px;
+}
+
+/****************UPDATE*******************/
+div#change-form{
+	width:50%;
+	margin:auto;
+	text-align:center;
+}
+
+#change-form input{
+	width:50%;
+	margin:1em auto;
+}
+
+#change-form button,
+#change-form a{
+	width:50%;
+	margin: .4em auto;
+}

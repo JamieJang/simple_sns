@@ -1,0 +1,51 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}LOGIN{% endblock %}
+
+{% block content %}
+	<a id="kakao-login-btn"></a>
+	<a href="http://developers.kakao.com/logout"></a>
+	<script type='text/javascript'>
+	  //<![CDATA[
+	    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+	    Kakao.init('cff6c0a62ff7ca3418a8888826b08d3d');
+	    // 카카오 로그인 버튼을 생성합니다.
+	    Kakao.Auth.createLoginButton({
+	      container: '#kakao-login-btn',
+	      success: function(authObj) {
+	        alert(JSON.stringify(authObj));
+	      },
+	      fail: function(err) {
+	         alert(JSON.stringify(err));
+	      }
+	    });
+	  //]]>
+	</script>
+
+	<div class="container" id="auth-form">
+		<form method="POST">
+			{% csrf_token %}
+			<table>
+			{% for each in form %}
+				<tr>
+					<td>{{ each.label }}</td>					
+					<td>{{ each }}</td>
+				<tr>	
+			{% endfor %}
+			</table>
+			<button type="submit" class="btn btn-default">Login</button>
+		</form>
+
+		<a href="{% url 'social:begin' 'google-oauth2' %}">
+			<button class="btn btn-block btn-danger" style="width: 40%">Google</button>
+		</a>	
+		<a href="{% url 'social:begin' 'facebook' %}">Facebook</a>
+	
+	</div>
+
+{% endblock %}
+
+{% block sciprt %}
+
+
+{% endblock %}

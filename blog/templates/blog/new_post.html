@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}NEW-POST{% endblock %}
+
+{% block content %}
+<div class="body">
+	<div class="container" id="post-form">
+		<form method="POST">
+			{% csrf_token %}
+			{% for each in form %}				
+				{{ each }}				
+			{% endfor %}
+			<button class="btn btn-default" type="submit">OK</button>
+		</form>
+	</div>
+</div>
+{% endblock %}

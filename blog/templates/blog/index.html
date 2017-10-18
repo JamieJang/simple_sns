@@ -1,0 +1,166 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block title %}HOME{% endblock %}
+
+{% block content %}
+
+	<div class="body">
+		<div class="col-xs-1 col-sm-3">
+			<div class="hidden-xs" style="text-align: center">
+				<div id="setting-btn">
+					<a href="{% url 'account:update' %}" style="color:black">
+						<span class="fa fa-cog" style="font-size: 15px"></span>
+					</a>
+				</div>
+				<div id="photo">
+					{% if not profile.prof_img %}
+					<img id="self-image" src="{% static 'account/img/user.png' %}" />
+					{% else %}
+					<img id="self-image" src="{{ profile.prof_img.url }}" style="opacity:1">
+					{% endif %}
+				</div>
+				<div id="info">
+					<a href="{% url 'blog:profile' user %}"  id="profile_name">
+						<h3>{{ profile.user.username }}</h3>
+					</a>
+					{% if profile.name %}
+					<h5>({{ profile.name }})</h5>
+					{% endif %}
+				</div>
+				{% if profile.group.all %}
+					<div class="group-info">
+						{% for group in profile.group.all %}
+							<p>{{ group }}</p>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="col-xs-10 col-sm-6" id="post-area">
+			<div class="post-form">
+				<form method="POST">
+				{% csrf_token %}
+					<div>
+					{% for each in form %}
+						{{ each }}
+						{% if each.label == 'Location' %}
+						<button type="button" class="btn btn-default" id="marker" style="width:6%; display:none" 
+							onclick="CurrentLocation()">
+							<span class="fa fa-map-marker"></span>
+						</button>
+						{% endif %}
+					{% endfor %}
+					</div>
+					<div>
+						<button type="button" class="btn btn-default" onclick="showLocation()">Location</button>
+						<button type="button" class="btn btn-default" onclick="showTag()">Tag</button>
+					</div>
+					<div class="submit">
+						<button type="submit" class="btn btn-default">POST</button>
+					</div>
+				</form>
+			</div>
+
+
+			<div class="posts">
+				{% for post in posts %}
+				<div class="post">
+					{% if post.author == user %}
+					<div id="delete">
+						<a href="{% url 'blog:removepost' post.pk %}">
+							<span class="fa fa-trash"></span>
+						</a>
+					</div>
+					<div id="mod">
+						<a href="{% url 'blog:modifypost' post.pk %}">
+							<span class="fa fa-pencil"></span>
+						</a>
+					</div>
+					{% endif %}
+					<div class="post-head">
+						<p><em><strong>
+							{% if post.author == user %}
+							<a href="{% url 'blog:profile' post.author %}" style="color:blue">{{ post.author }}</a>
+							{% else %}
+							<a href="{% url 'blog:profile' post.author %}">{{ post.author }}</a>
+							{% endif %}
+						</strong></em></p>
+						<p><small>
+							{{ post.published | naturalday }} -- 
+							<a href="{% url 'blog:searchinglocation' post.q_location %}"
+							style="border:1px solid #ccc;border-radius: 5px">
+								{{ post.location }}
+							</a>
+						</small></p>
+					</div>
+					<div class="post-body">
+						<p>{{ post.content | linebreaks }}</p>
+					</div>
+					
+					<div class="post-tail">						
+					{% if post.tags.all.0.name %}
+						{% for tag in post.tags.all %}
+							<a href="{% url 'blog:searchingtag' tag.name %}">#{{ tag }}</a>
+						{% endfor %}
+					{% endif %}
+					</div>				
+					
+				</div>
+				{% endfor %}
+			</div>
+
+		</div>
+
+		<div class="col-xs-1 col-sm-3">
+		</div>
+
+	</div>
+{% endblock %}
+
+{% block script %}
+
+<script>
+/* Finding current location & serve auto searching box */
+function initAutocomplete(){
+	var input = document.getElementById('location');
+	var searchBox = new google.maps.places.SearchBox(input);	
+
+	searchBox.addListener('places_changed', function() {
+		var places = searchBox.getPlaces();
+		console.log(places[0].formatted_address);
+	});
+}
+
+function CurrentLocation(){
+	if(navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(function(position){
+			var pos = {
+				lat: position.coords.latitude,
+				lng: position.coords.longitude,
+			}
+
+			var geourl = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+pos.lat+","+pos.lng+"&key={{apikey}}";
+
+			$.ajax({
+				url: geourl,
+				type: 'POST',
+				success: function(response){
+					if(response.status == 'OK'){
+						var addr = response.results;
+						var size = addr.length;
+						document.getElementById("location").value = addr[size-3].formatted_address;
+					}
+				}
+			})
+		});
+	}
+}
+CurrentLocation();
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{apikey}}&libraries=places&callback=initAutocomplete" async defer>
+</script>
+
+{% endblock %}
