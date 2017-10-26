@@ -146,17 +146,4 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
-
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '159812888747-4emenncb3saiqsd4172isoeddbfjrgag.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'vkgZm4Zet4xGHHUEPKbdWN9n'
-
-SOCIAL_AUTH_FACEBOOK_KEY = '1961756857417737'
-SOCIAL_AUTH_FACEBOOK_SECRET = '5f9135fd7615c7b5fe1ddb1a03e8f348'
-
-SOCIAL_AUTH_KAKAO_KEY = 'cff6c0a62ff7ca3418a8888826b08d3d'
-
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'  
 
